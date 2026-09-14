@@ -11,7 +11,7 @@
 | Frozen decoder and adapters | Checkpoint directories from the documented training stages | Generated separately |
 | Synthetic example | `examples/toy_protein.json` | Yes |
 
-Obtain each external resource from its original publisher and preserve its terms and version. Dataset licenses and model licenses are separate from this code's license. The local research benchmark directory layout is supported, but downloading and redistribution of those datasets is not automated by this release.
+Use the [pinned downloader and project resource archives](resources.md) to populate these inputs. Dataset licenses and model licenses are separate from the project's license. The downloader preserves the layout expected by the evaluators and extracts real image/video media; project archives supply the exact caches and sample selections.
 
 ## Geometry cache
 
@@ -30,4 +30,3 @@ The toy example is hand-constructed and identifies itself as synthetic. It illus
 ## Trust boundary
 
 Training caches and checkpoints use PyTorch serialization, including `torch.load(..., weights_only=False)` for structured caches. Load only files you created or obtained from a trusted source. Model code requiring `trust_remote_code=True` must be reviewed separately. Authentication belongs in your local environment or Hugging Face credential store, never in committed configuration files.
-

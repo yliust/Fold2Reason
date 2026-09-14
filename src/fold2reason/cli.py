@@ -11,6 +11,9 @@ import sys
 import tomllib
 
 COMMANDS = {
+    ("data", "download"): "data.download",
+    ("data", "verify"): "data.verify_resources",
+    ("data", "install-archive"): "data.install_archive",
     ("data", "geometry"): "data.geometry_cache",
     ("data", "foldbench"): "data.foldbench_cache",
     ("data", "corpus"): "data.folding_corpus",
@@ -94,4 +97,3 @@ def main(argv: list[str] | None = None) -> None:
         module.main()
     finally:
         sys.argv = previous
-

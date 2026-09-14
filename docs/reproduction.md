@@ -2,9 +2,11 @@
 
 Run commands from the repository root. Keep models in `models/`, externally obtained datasets in `data/`, and generated caches/checkpoints in `artifacts/`. All three directories are ignored by Git. Use a fresh output directory for every run.
 
+First follow [resource acquisition](resources.md). Installing the core training, FoldBench334 and frozen-decoder-heads archives supplies the cached inputs and original decoder used below; skip sections 1–3 and start training at section 4. To skip training entirely, install the main experiment's three-seed LoRA/workspace archive and follow [pretrained evaluation](evaluation.md#evaluate-the-released-main-checkpoints). Base-model weights are downloaded separately. Download URLs for owner-hosted archives will be filled after upload. The preparation commands remain available for rebuilding from raw records or training a different decoder.
+
 ## 1. Prepare geometry tensors
 
-The training input is JSONL in the research BB4Q10 chat-record format: a system message, a user message with sequence/MSA/template evidence, and an assistant backbone target. See [data formats](data.md). The source protein collection and dataset-selection pipeline are external inputs to this release; cached training data from a previous run is also supported.
+The training input is JSONL in the research BB4Q10 chat-record format: a system message, a user message with sequence/MSA/template evidence, and an assistant backbone target. See [data formats](data.md). The core resource archive provides the selected 1,000/100/100 records and matching training caches. Rebuilding a different source collection requires a separately documented selection pipeline.
 
 ```bash
 fold2reason data geometry \
@@ -54,7 +56,7 @@ torchrun --standalone --nproc_per_node=4 -m fold2reason train decoder \
   --output artifacts/decoder
 ```
 
-The decoder recipe freezes the language model and the zero-initialized LoRA adapter and trains the geometry heads. Use the chosen decoder checkpoint consistently across comparison arms. Its files, seed, selection rule, and hash belong in the experiment record. Exact paper-number reproduction also requires the paper's original input selection and decoder checkpoint; they are not bundled here.
+The decoder recipe freezes the language model and the zero-initialized LoRA adapter and trains the geometry heads. Use the chosen decoder checkpoint consistently across comparison arms. Its files, seed, selection rule, and hash belong in the experiment record. For the original experimental decoder, install `fold2reason-frozen-decoder-heads-v1.tar.gz` instead of retraining it with this example recipe.
 
 ## 4. Train the full model and the Pure-LoRA baseline
 

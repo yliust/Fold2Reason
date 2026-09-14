@@ -9,6 +9,7 @@ description = "Protein-structure post-training with FoldingCorpus and a shared s
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 dependencies = [
+  "huggingface_hub>=1,<2",
   "torch>=2.8,<2.11",
   "transformers @ git+https://github.com/huggingface/transformers.git@dff4572dfa4bfa9f00cc8414e4b84877552fefe9",
   "peft @ git+https://github.com/huggingface/peft.git@3116c96b5d870851e8477eb99dfcf8471bac0e72",
@@ -34,4 +35,3 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-

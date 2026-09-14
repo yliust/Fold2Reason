@@ -1,3 +1,21 @@
+# Fold2Reason local resources and release staging (never commit these)
+/artifacts/
+/data/
+/models/
+/outputs/
+/logs/
+*.pt
+*.pth
+*.safetensors
+*.parquet
+*.zip
+*.tar
+*.tar.gz
+*.pem
+*.key
+.env.*
+!.env.example
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

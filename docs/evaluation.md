@@ -1,5 +1,18 @@
 # Evaluation
 
+## Evaluate the released main checkpoints
+
+Install the Qwen3.5-9B main experiment archive to evaluate the existing fixed epoch-3 / step-375 models:
+
+```bash
+fold2reason data install-archive \
+  --archive downloads/fold2reason-qwen35-9b-main-lora-workspace-3seeds-v1.tar.gz
+```
+
+The three seeds are `20260729`, `20260803`, and `20260804`. In the commands below, replace `artifacts/runs/full/seed-20260729/final` with `artifacts/pretrained/qwen35-9b-main/seed-20260729`; the `adapter/` subdirectory stays the same. Repeat with the other seeds and separate output directories.
+
+General-10 uses the base model plus the selected seed's LoRA. FoldBench additionally uses the same seed's workspace and the separately installed original frozen decoder at `artifacts/decoder/final`. Tokenizer files come from the pinned official base model. The archive includes no base weights or optimizer state. Its internal `checkpoint_manifest.json` records source checkpoint paths, per-file hashes, workspace tensor hashes and fixed endpoint metadata.
+
 ## Structural readout
 
 ```bash
@@ -71,4 +84,3 @@ fold2reason analyze general10 \
 ```
 
 The aggregator requires exactly three complete seeds for each model, rejects duplicate records and unknown benchmarks, and reports mean scores, paired percentage-point changes, seed SD, and the equal-weight ten-benchmark macro. Validate sample coverage in the raw evaluator outputs before normalizing scores; the aggregator verifies score-table completeness, not raw prediction coverage.
-

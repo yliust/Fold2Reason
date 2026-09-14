@@ -59,6 +59,11 @@ def scan(root):
         for name in result.stdout.decode().split("\0"):
             if name and Path(name).parts[0] in EXTERNAL_ROOTS:
                 errors.append(f"{name}: local data/model/output must not be tracked")
+        for name in EXTERNAL_ROOTS:
+            if (root / name).exists():
+                ignored = subprocess.run(["git", "check-ignore", "-q", name + "/"], cwd=root)
+                if ignored.returncode != 0:
+                    errors.append(f"{name}/: local resource directory must be excluded by .gitignore")
     if not any((root / name).is_file() for name in ("LICENSE", "LICENSE.md", "LICENSE.txt")):
         warnings.append("Project LICENSE is pending maintainer confirmation.")
     return scanned, errors, warnings

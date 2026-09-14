@@ -51,6 +51,7 @@ class CliTests(unittest.TestCase):
 
     def test_all_recipe_arguments_are_accepted(self):
         recipes = {
+            "train/scaling.toml": "training.workspace",
             "train/full.toml": "training.workspace",
             "train/corpus_only.toml": "training.pure_lora",
             "train/decoder.toml": "training.geometry",
